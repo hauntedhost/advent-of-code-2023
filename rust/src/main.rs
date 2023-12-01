@@ -13,7 +13,7 @@ fn read_lines_from_file(filename: &str) -> Vec<String> {
 fn main() {
     // Part One
     // ========
-    let lines = read_lines_from_file("./data/input1.txt");
+    let lines = read_lines_from_file("../data/01-input1.txt");
 
     let mut calibrations: Vec<i32> = Vec::new();
 
@@ -49,7 +49,7 @@ fn main() {
 
     // Part Two
     // ========
-    let lines = read_lines_from_file("./data/input2.txt");
+    let lines = read_lines_from_file("../data/01-input2.txt");
 
     // let's make a map of words to numbers
     let number_words = HashMap::from([
