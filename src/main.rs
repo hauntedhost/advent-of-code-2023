@@ -35,6 +35,7 @@ fn main() {
             last = first;
         }
 
+        // horrifying
         let calibration = (first.unwrap().to_string() + &last.unwrap().to_string())
             .parse::<i32>()
             .unwrap();
@@ -66,22 +67,31 @@ fn main() {
     let mut calibrations: Vec<i32> = Vec::new();
 
     for line in &lines {
+        // we're building a map of matching indices to numbers, e.g.
+        // "two1nine" => {0: "2", 3: "1", 4: "9"}
         let mut match_map: HashMap<usize, String> = HashMap::new();
 
         for (i, c) in line.char_indices() {
+            // if the character is numeric, put that as match and continue
             if c.is_numeric() {
                 match_map.insert(i, c.to_string());
-            }
-
-            for (word, &number) in &number_words {
-                if line[i..].starts_with(word) {
-                    match_map.insert(i, number.to_string());
-                    break;
+                continue;
+            } else {
+                // else loop through lookup map and see if any word matches
+                for (word, &number) in &number_words {
+                    if line[i..].starts_with(word) {
+                        match_map.insert(i, number.to_string());
+                        break;
+                    }
                 }
             }
         }
 
-        // rust is so pretty (ಠ_ಠ)
+        // now with this map, we take min/max keys and get the values
+        // e.g. "two1nine" match_map => {0: "2", 3: "1", 4: "9"}
+        // min key => 0 with "2" value, max key => 4, with "9" value
+
+        // why are you so rust :'(
         let first = match_map
             .keys()
             .min()
