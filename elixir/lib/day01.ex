@@ -77,7 +77,7 @@ defmodule AdventOfCode2023.Day01 do
 
               Enum.reduce_while(lookup, acc, fn {word, number}, acc ->
                 if String.starts_with?(slice, word) do
-                  # char is a digit, put it in the map
+                  # we're at a numeric word, put number in the map
                   {:halt, Map.put(acc, index, number)}
                 else
                   {:cont, acc}
