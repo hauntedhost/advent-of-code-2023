@@ -9,7 +9,6 @@ fn main() {
 
     // Part One
     // ========
-
     let limits: HashMap<&str, i32> = HashMap::from([
         ("red", 12),
         ("green", 13),
@@ -21,9 +20,7 @@ fn main() {
     // "Game 1: 3 blue, 4 red; 1 red, 2 green, 6 blue; 2 green"
     'lines: for line in &lines {
         let parts: Vec<&str> = line.split(":").collect();
-
-        // whyy are you so rust
-        let game_id = parts[0].split(" ").nth(1).unwrap().parse::<i32>().unwrap();
+        let game_id = parts[0][5..].parse::<i32>().unwrap();
 
         // split rounds on ";"
         // e.g., ["3 blue, 4 red", "1 red, 2 green, 6 blue", "2 green"]
