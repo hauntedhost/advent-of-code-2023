@@ -1,19 +1,10 @@
+use advent_of_code_2023::*;
 use std::collections::HashMap;
-use std::fs;
-
-fn read_lines_from_file(filename: &str) -> Vec<String> {
-    fs::read_to_string(filename)
-        .expect("Failed to read input")
-        .trim_end_matches(&['\r', '\n'][..])
-        .split("\n")
-        .map(|line| line.to_string())
-        .collect()
-}
 
 fn main() {
     // Part One
     // ========
-    let lines = read_lines_from_file("../data/01-input.txt");
+    let lines = read_lines_from_file("01-input.txt");
 
     let mut calibrations: Vec<i32> = Vec::new();
 
@@ -49,7 +40,7 @@ fn main() {
 
     // Part Two
     // ========
-    let lines = read_lines_from_file("../data/01-input.txt");
+    let lines = read_lines_from_file("01-input.txt");
 
     let nums = ["one", "two", "three", "four", "five", "six", "seven", "eight", "nine"];
     let mut calibrations: Vec<i32> = Vec::new();
@@ -63,18 +54,18 @@ fn main() {
         // }
         let mut matches: HashMap<usize, usize> = HashMap::new();
 
-        for (index, char) in line.char_indices() {
+        for (i, char) in line.char_indices() {
             // if the character is numeric, put that as match and continue
             if char.is_numeric() {
                 let num = char.to_digit(10).unwrap() as usize;
-                matches.insert(index, num);
+                matches.insert(i, num);
                 continue;
             } else {
                 // else loop through nums and see if any word matches
-                for (index, word) in nums.iter().enumerate() {
-                    let num = index + 1;
-                    if line[index..].starts_with(word) {
-                        matches.insert(index, num);
+                for (j, word) in nums.iter().enumerate() {
+                    let num = j + 1;
+                    if line[i..].starts_with(word) {
+                        matches.insert(i, num);
                         break;
                     }
                 }
