@@ -1,6 +1,9 @@
 use advent_of_code_2023::*;
 use std::collections::HashMap;
 
+// Day 1: Trebuchet?!
+// https://adventofcode.com/2023/day/1
+
 fn main() {
     // Part One
     // ========
@@ -35,7 +38,6 @@ fn main() {
     });
 
     let sum: i32 = calibrations.iter().sum();
-    // println!("{:?}", calibrations);
     println!("{:?}", sum);
 
     // Part Two
@@ -46,15 +48,26 @@ fn main() {
     let mut calibrations: Vec<i32> = Vec::new();
 
     for line in &lines {
-        // build a map of matching indexes to numbers, e.g.
-        // "two1nine" matches => {
-        //   0: 2,
-        //   3: 1,
-        //   4: 9
-        // }
+        // build a map of matching indexes to numbers
+        // e.g. "two1nine" would be:
+        //   {
+        //     0: 2,
+        //     3: 1,
+        //     4: 9
+        //   }
+
         let mut matches: HashMap<usize, usize> = HashMap::new();
+        let mut skip_until = None;
 
         for (i, char) in line.char_indices() {
+            // optimization skip
+            if let Some(skip_index) = skip_until {
+                if i < skip_index {
+                    continue;
+                }
+                skip_until = None;
+            }
+
             // if the character is numeric, put that as match and continue
             if char.is_numeric() {
                 let num = char.to_digit(10).unwrap() as usize;
@@ -66,6 +79,7 @@ fn main() {
                     let num = j + 1;
                     if line[i..].starts_with(word) {
                         matches.insert(i, num);
+                        skip_until = Some(i + word.len() - 1);
                         break;
                     }
                 }
