@@ -28,3 +28,4 @@
 ## Days
 - Day 1 — [rust](rust/src/bin/day01.rs), [elixir](elixir/lib/day01.ex)
 - Day 2 - [rust](rust/src/bin/day02.rs)
+- Day 3 - [rust](rust/src/bin/day03.rs)
